@@ -5,6 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.swing.text.html.Option;
+
+import java.util.Optional;
+
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,5 +24,17 @@ public class JoinDAOTest {
         assertNotNull( sqlSession.selectList("join.findZipcode", dong) );
         System.out.println( sqlSession.selectList("join.findZipcode", dong) );
     }
+
+    @Test
+    public void checkUserid() {
+        String uid = "abc123";
+        assertEquals(1,(int)sqlSession.selectOne("join.selectOneUid",uid));
+
+
+    }
+
+
+
+
 
 }
