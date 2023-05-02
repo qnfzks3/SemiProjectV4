@@ -12,7 +12,7 @@
         <Logger name="org.springframework.jdbc.core" level="trace" />
         <Logger name="org.mybatis.*" level="debug" />
 
-        <Logger name="zzyzzy.spring4mvc.semiprojectv4" level="info"/>
+        <Logger name="qnfzks3.spring4mvc.semiprojectv4" level="info"/>
 
         <Root level="info">
             <AppenderRef ref="Console"/>
