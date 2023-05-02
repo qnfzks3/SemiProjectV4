@@ -48,6 +48,21 @@ const zipbtn = document.querySelector('#findzipbtn');
 const addrlist = document.querySelector('#addrlist');
 const sendzip = document.querySelector('#sendzip');
 const zipmodal = document.querySelector('#zipmodal');
+const zpmdbtn = document.querySelector('#zpmdbtn');
+
+const modal = new bootstrap.Modal(zipmodal,{});
+
+
+zpmdbtn?.addEventListener('click',()=>{ // 이전에 검색한 글들을 다 지운다.
+    while(addrlist.lastChild) {
+        addrlist.removeChild(addrlist.lastChild);
+    }
+    dong.value = '';
+
+    //bootstrap.Modal(zipmodal,{}).show();   //모달창 hide() 사라지기 , show() 나타나기
+    modal.show();
+});
+
 
 
 joinbtn?.addEventListener('click', ()=>{
@@ -83,9 +98,18 @@ const showzipaddr = (jsons) => {
 };
 
 zipbtn?.addEventListener('click', ()=> {
+
+    if (dong.value ==='') { //아무것도 입력 안하는거 방지
+        alert('검색할 동 이름을 입력하세요!!'); 
+        return;
+    }
+
     const url = '/join/zipcode?dong=' + dong.value;
     fetch(url).then(response => response.text())
-        .then(text => showzipaddr(text));
+        .then(text => showzipaddr(text));   
+
+
+
 });
 
 sendzip?.addEventListener('click',()=>{
