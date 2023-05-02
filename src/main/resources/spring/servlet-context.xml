@@ -6,7 +6,9 @@
 
     <mvc:annotation-driven />
 
-    <!-- 웹 정적 자원 설정 -->
+    <!-- 웹 정적 자원 설정 - Spring MVC에서 정적 자원(예: CSS, JavaScript, 이미지 파일 등)을 처리하기 위한 설정 -->
+    <!--location="/resources/"은 정적 자원이 실제로 위치하는 경로를 나타냅니다.
+    이 설정에 따라 "/resources" 경로에 있는 모든 정적 자원이 요청 경로 "/assets/**"로 매핑-->
     <mvc:resources mapping="/assets/**" location="/resources/" />
 
     <!-- jsp 설정 -->
