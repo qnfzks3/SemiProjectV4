@@ -93,10 +93,10 @@
                 <div class="row col-11 offset-1 mb-3 align-items-center">
                     <label class="col-2 form-label text-danger text-end"
                            for="zip1">우편번호</label>
-                    <div class="col-1">
+                    <div class="col-2">
                         <input type="text" name="zip1" id="zip1"
                                class="form-control border-danger bg-light" readonly> </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <input type="text" name="zip2" id="zip2"
                                class="form-control border-danger bg-light" readonly> </div>
                     <div class="col-3">

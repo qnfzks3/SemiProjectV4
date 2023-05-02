@@ -1,4 +1,3 @@
-// header 로고 클릭 이벤트
 let logo = document.querySelector('#logo');
 logo.addEventListener('click', () => {
     location.href = '/';
@@ -49,21 +48,9 @@ const addrlist = document.querySelector('#addrlist');
 const sendzip = document.querySelector('#sendzip');
 const zipmodal = document.querySelector('#zipmodal');
 const zpmdbtn = document.querySelector('#zpmdbtn');
+const email3 = document.querySelector('#email3');
 
-const modal = new bootstrap.Modal(zipmodal,{});
-
-
-zpmdbtn?.addEventListener('click',()=>{ // 이전에 검색한 글들을 다 지운다.
-    while(addrlist.lastChild) {
-        addrlist.removeChild(addrlist.lastChild);
-    }
-    dong.value = '';
-
-    //bootstrap.Modal(zipmodal,{}).show();   //모달창 hide() 사라지기 , show() 나타나기
-    modal.show();
-});
-
-
+const modal = new bootstrap.Modal(zipmodal, {});
 
 joinbtn?.addEventListener('click', ()=>{
     if (joinfrm.userid.value == '') alert('아이디를 입력하세요!!');
@@ -81,6 +68,15 @@ joinbtn?.addEventListener('click', ()=>{
 
 });
 
+zpmdbtn?.addEventListener('click', () => {
+    while(addrlist.lastChild) {
+        addrlist.removeChild(addrlist.lastChild);
+    }
+    dong.value = '';
+
+    modal.show();
+});
+
 const showzipaddr = (jsons) => {
     //for(idx in jsons) {
     //    console.log(jsons[idx] );
@@ -88,8 +84,9 @@ const showzipaddr = (jsons) => {
     jsons = JSON.parse(jsons);
     let addrs = '';
     jsons.forEach(function (data, idx) {
+        let bunji = (data['bunji'] !== 'null') ? data['bunji'] : '';
         addrs += `<option>${data['zipcode']} ${data['sido']} 
-                     ${data['gugun']} ${data['dong']}</option>`;
+             ${data['gugun']} ${data['dong']} ${bunji}</option>`;
     });
     while(addrlist.lastChild) {
         addrlist.removeChild(addrlist.lastChild);
@@ -98,40 +95,40 @@ const showzipaddr = (jsons) => {
 };
 
 zipbtn?.addEventListener('click', ()=> {
-
-    if (dong.value ==='') { //아무것도 입력 안하는거 방지
-        alert('검색할 동 이름을 입력하세요!!'); 
+    if (dong.value === '') {
+        alert('검색할 동이름을 입력하세요!!');
         return;
     }
-
     const url = '/join/zipcode?dong=' + dong.value;
     fetch(url).then(response => response.text())
-        .then(text => showzipaddr(text));   
-
-
-
+        .then(text => showzipaddr(text));
 });
 
-sendzip?.addEventListener('click',()=>{
-    let addr= addrlist.value;
-    
-    if (addr !='') { //빈 값이아니라면
-        //alert(addr);   이제 빈칸에 선택한 것들을 채워보자
-        //123-456 서울 구로구 구로 1동
-        let zip = addr.split(' ')[0]; //123 -456 으로
+sendzip?.addEventListener('click', () => {
+    let addr = addrlist.value;
+    if (addr !== '') {
+        // 123-456 서울 구로구 구로1동
+        let zip = addr.split(' ')[0];  // 123-456
         joinfrm.zip1.value = zip.split('-')[0];
-        joinfrm.zip2.value = zip.split('-')[1];  //우편 번호를 짤라서 넣어보자 앞부분을 zip1  뒷 부분을 zip2
-        let addrs =`${addr.split(' ')[1]} ${addr.split(' ')[2]} ${addr.split(' ')[3]}`;
-        joinfrm.addr1.value= addrs;
+        joinfrm.zip2.value = zip.split('-')[1];
 
+        let addrs = `${addr.split(' ')[1]} ${addr.split(' ')[2]} ${addr.split(' ')[3]}`;
+        joinfrm.addr1.value = addrs;
 
-        bootstrap.Modal.getInstance(zipmodal).hide(); //자바스크립트 모달창 닫기
-
-    }else{
-        alert('주소를 선택하세요!!')
+        modal.hide();
+    } else {
+        alert('주소를 선택하세요!!');
     }
+});
 
-}); 
-
+email3.addEventListener('change', () => {
+    if (email3.value === '직접입력하기') {
+        joinfrm.email2.readOnly = false;
+        joinfrm.email2.value = '';
+    } else if (email3.value !== '선택하세요') {
+        joinfrm.email2.readOnly = true;
+        joinfrm.email2.value = email3.value;
+    }
+});
 
 // ------------------------------- joinok
