@@ -55,7 +55,12 @@ const uidmsg = document.querySelector('#uidmsg');
 const pwdmsg = document.querySelector('#pwdmsg');
 const repasswd = document.querySelector('#repasswd');
 
-const modal = new bootstrap.Modal(zipmodal, {});
+let modal = null;
+
+try {
+     modal = new bootstrap.Modal(zipmodal, {});
+}catch (e){}
+
 
 joinbtn?.addEventListener('click', ()=>{
     if (joinfrm.userid.value == '') alert('아이디를 입력하세요!!');
@@ -186,3 +191,17 @@ repasswd?.addEventListener('blur', () => {
 
 
 // ------------------------------- joinok
+
+
+const go2index = document.querySelector('#go2index');
+
+go2index?.addEventListener('click',()=>{
+    location.href='/';
+
+})
+
+
+
+
+
+

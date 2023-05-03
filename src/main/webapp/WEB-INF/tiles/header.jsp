@@ -1,11 +1,19 @@
 <%@ page pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  <%--다양한 기능을 추가하는 라이브러리 추가--%>
 <header class="row">
     <div class="col"><h1 id="logo">Lorem Ipsum</h1></div>
     <div class="col text-end">
-        <button type="button" class="btn btn-danger mt-2"
+        <c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}"/>
+        <%--경로를 path라는 변수에 넣고  --%>
+       
+        <c:if test="${! fn:startsWith(path, '/join')}"> <%--if문을 적어준다. - 조건은 test로 경로가 /join이 아니면--%>
+
+            <button type="button" class="btn btn-danger mt-2"
                 data-bs-target="#loginfrm" data-bs-toggle="modal">로그인</button>
-        <button type="button" class="btn btn-primary mt-2">회원가입</button>
+            <button type="button" class="btn btn-primary mt-2">회원가입</button>
+
+        </c:if>
     </div>
 </header>
 
