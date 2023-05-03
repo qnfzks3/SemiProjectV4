@@ -38,7 +38,7 @@ public class MemberController {
     }
 
     @GetMapping ("/logout")
-    public String logout() {
+    public String logout(HttpSession sess) {
         sess.invalidate();
 
         return "redirect:/";
