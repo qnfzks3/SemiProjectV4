@@ -1,3 +1,4 @@
+// header 로고 클릭 이벤트
 let logo = document.querySelector('#logo');
 logo.addEventListener('click', () => {
     location.href = '/';
@@ -49,14 +50,11 @@ const sendzip = document.querySelector('#sendzip');
 const zipmodal = document.querySelector('#zipmodal');
 const zpmdbtn = document.querySelector('#zpmdbtn');
 const email3 = document.querySelector('#email3');
-
 const userid = document.querySelector('#userid');
+const uidmsg = document.querySelector('#uidmsg');
 
-const uidmasg = document.querySelector('#uidmasg');
+const repasswd=document.querySelector('#repasswd');
 const pwdmsg = document.querySelector('#pwdmsg');
-
-
-
 
 const modal = new bootstrap.Modal(zipmodal, {});
 
@@ -69,7 +67,7 @@ joinbtn?.addEventListener('click', ()=>{
     else if (joinfrm.addr1.value == '' || joinfrm.addr2.value == '') alert('주소를 확인하세요!!');
     else if (joinfrm.email1.value == '' || joinfrm.email2.value == '') alert('이메일을 확인하세요!!');
     else if (joinfrm.tel2.value == '' || joinfrm.tel3.value == '') alert('전화번호를 확인하세요!!');
-    else if (grecaptcha.getResponse() === '') alert('자동가입방지를 확인하세요!!'); //체크하지 않을시 경고창
+    else if (grecaptcha.getResponse() === '') alert('자동가입방지를 확인하세요!!');
     else {
         joinfrm.method = 'post';
         joinfrm.action = '/join/joinok';
@@ -88,13 +86,10 @@ zpmdbtn?.addEventListener('click', () => {
 });
 
 const showzipaddr = (jsons) => {
-    //for(idx in jsons) {
-    //    console.log(jsons[idx] );
-    //}
     jsons = JSON.parse(jsons);
     let addrs = '';
     jsons.forEach(function (data, idx) {
-        let bunji = (data['bunji'] !== 'null') ? data['bunji'] : '';
+        let bunji = (data['bunji'] !== null) ? data['bunji'] : '';
         addrs += `<option>${data['zipcode']} ${data['sido']} 
              ${data['gugun']} ${data['dong']} ${bunji}</option>`;
     });
@@ -141,25 +136,47 @@ email3?.addEventListener('change', () => {
     }
 });
 
-dong?.addEventListener('keydown',(e)=>{
-
-    if (e.keyCode===13){ //엔터키를 누르면
-        e.preventDefault(); //이벤트 전파방지
+dong?.addEventListener('keydown', (e) => {
+    if (e.keyCode === 13) {  // 엔터키를 누르면
+        e.preventDefault();  // 이벤트 전파방지
     }
 })
 
-userid?.addEventListener('blur',()=>{
+const styleCheckuid = (chkuid) => {
+    let msg = '사용 불가능한 아이디입니다!!';
+    uidmsg.style.color = 'red';
+
+    if (chkuid === '0') {
+        msg = '사용 가능한 아이디입니다!!';
+        uidmsg.style.color = 'blue';
+    }
+    uidmsg.innerText = msg;
+};
+
+userid?.addEventListener('blur', () => {
     if (userid.value === '') {
-        alert('중복 검색할 아이디를 입력하세요!!');
+        //alert('중복 검색할 아이디를 입력하세요!!');
+        uidmsg.innerText='6~16자의 영문 소문자 , 숫자와 특수문자(_)만 사용할 수 있습니다. '
+        uidmsg.style.color = 'blue';
         return;
     }
     const url = '/join/checkuid?uid=' + userid.value;
     fetch(url).then(response => response.text())
-        .then(text => alert(text));//확인만 - 아무것도 쓰지 않고 넘겼을때 나오는지
-
+        .then(text => styleCheckuid(text));
 });
 
 
+repasswd?.addEventListener('blur',()=>{
+    let pmsg = '비밀번호가 서로 일치하지않습니다.';
+    uidmsg.style.color = 'red';
+    if (repasswd.value ===joinfrm.passwd.value){
+        pmsg='비밀번호는 서로 일치합니다!!'
+        pwdmsg.style.color='blue';
+
+    }
+    pwdmsg.innerText=pmsg;
+
+})
 
 
 // ------------------------------- joinok
