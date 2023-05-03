@@ -52,9 +52,8 @@ const zpmdbtn = document.querySelector('#zpmdbtn');
 const email3 = document.querySelector('#email3');
 const userid = document.querySelector('#userid');
 const uidmsg = document.querySelector('#uidmsg');
-
-const repasswd=document.querySelector('#repasswd');
 const pwdmsg = document.querySelector('#pwdmsg');
+const repasswd = document.querySelector('#repasswd');
 
 const modal = new bootstrap.Modal(zipmodal, {});
 
@@ -155,9 +154,8 @@ const styleCheckuid = (chkuid) => {
 
 userid?.addEventListener('blur', () => {
     if (userid.value === '') {
-        //alert('중복 검색할 아이디를 입력하세요!!');
-        uidmsg.innerText='6~16자의 영문 소문자 , 숫자와 특수문자(_)만 사용할 수 있습니다. '
-        uidmsg.style.color = 'blue';
+        uidmsg.innerText = '6~16 자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다';
+        uidmsg.style.color = 'gray';
         return;
     }
     const url = '/join/checkuid?uid=' + userid.value;
@@ -165,18 +163,16 @@ userid?.addEventListener('blur', () => {
         .then(text => styleCheckuid(text));
 });
 
+repasswd?.addEventListener('blur', () => {
+    let pmsg = '비밀번호가 서로 일치하지 않습니다!!';
+    pwdmsg.style.color = 'red';
 
-repasswd?.addEventListener('blur',()=>{
-    let pmsg = '비밀번호가 서로 일치하지않습니다.';
-    uidmsg.style.color = 'red';
-    if (repasswd.value ===joinfrm.passwd.value){
-        pmsg='비밀번호는 서로 일치합니다!!'
-        pwdmsg.style.color='blue';
-
+    if ( repasswd.value === joinfrm.passwd.value ) {
+        pmsg = '비밀번호는 서로 일치합니다!!';
+        pwdmsg.style.color = 'blue';
     }
-    pwdmsg.innerText=pmsg;
-
-})
+    pwdmsg.innerText = pmsg;
+});
 
 
 // ------------------------------- joinok
