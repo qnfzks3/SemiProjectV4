@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import qnfzks3.spring4mvc.semiprojectv4.model.Member;
 
 import javax.swing.text.html.Option;
 
@@ -32,6 +33,24 @@ public class JoinDAOTest {
 
 
     }
+    @Test
+    public void newMember() {
+        Member m = new Member();
+        m.setName("혜교");
+        m.setJumin1("123456");
+        m.setJumin2("1234567");
+        m.setUserid("abc123");
+        m.setPasswd("abc123");
+        m.setZipcode("123-456");
+        m.setAddr1("123-456");
+        m.setAddr2("123-456");
+        m.setEmail("123-456");
+        m.setPhone("123-456");
+
+        assertEquals(1,sqlSession.insert("join.insertMember",m));
+
+    }
+
 
 
 

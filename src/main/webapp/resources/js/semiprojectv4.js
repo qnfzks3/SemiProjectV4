@@ -74,7 +74,7 @@ joinbtn?.addEventListener('click', ()=>{
         joinfrm.email.value = joinfrm.email.value+'@'+joinfrm.email2.value;
         joinfrm.phone.value=joinfrm.tel1.value+'-'+joinfrm.tel2.value+'-'+joinfrm.tel3.value;
 
-        joinfrm.method = 'post';
+        joinfrm.method = 'post'; //포스트로 호출 했을 때의 처리를 또 해주자 - action
         joinfrm.action = '/join/joinok';
         joinfrm.submit();
     }
