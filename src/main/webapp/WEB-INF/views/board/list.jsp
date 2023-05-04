@@ -9,29 +9,27 @@
   <%--총 3개  div - 새글쓰기 버튼 , 메인 게시판, 페이지네이션--%>
   <%--버튼과 검색창--%><%-- offset-2 양끝을 빈공간으로 text-end는 오른쪽 끝--%>
   <div class="row mt-5">
-  <div class="offset-2 col-6">
-    <div class="col-3">
-      <select class="form-select" id="findtype">
-        <option value="subject">제목</option>
-        <option value="sbjcont">제목+내용</option>
-        <option value="contents">내용</option>
-        <option value="userid">작성자</option>
-    </select></div>
+    <div class="row offset-2 col-6">
+      <div class="col-3">
+        <select class="form-select" id="findtype"><%--테이블에있는 각 데이터와 이름이 일치해야한다. value=""--%>
+          <option value="subject">제목</option>
+          <option value="sbjcont">제목+내용</option>
+          <option value="contents">내용</option>
+          <option value="userid">작성자</option>
+        </select></div>
 
-    <div class="col-4"><input type="text" class="form-control col2" id="findkey"></div>
-    <div class="col-3">
-    <button type="button" class="btn btn-light">
-      <i class="fa-solid fa-magnifying-glass"></i>검색하기</button></div>
+      <div class="col-4">
+        <input type="text" class="form-control col-2" id="findkey"></div>
 
-  </div>
-
-
-    <div class=" col-2 text-end"> <%--text-end는 오른쪽 끝--%>
-      <button type="button" class = "btn btn-light">
-        <i class="fa fa-plus-circle"></i>새글쓰기
-      </button>
+      <div class="col-3">
+        <button type="button" class="btn btn-light">
+          <i class="fa-solid fa-magnifying-glass"> </i> 검색하기</button></div>
     </div>
-
+    <%--여기를 기준으로 반반--%>
+    <div class="col-2 text-end">
+      <button type="button" class="btn btn-light">
+        <i class="fa fa-plus-circle"> </i> 새글쓰기</button>
+    </div>
   </div>
 
 
